@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Venda</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="scripts/padrao.js"></script>
+</head>
+<body>
+
+    <main class="container">
+        <form class="formulario" action="/cadastrar-venda" method="POST">
+            <h1>Cadastrar Vendas</h1>
+
+            <label for="Cliente">Cliente</label>
+            <select id="cliente" name="id_cliente" required>
+            <option value="">Carregando clientes...</option>
+            </select>
+
+            <label for="Vendedor">Vendedor</label>
+            <select id="vendedor" name="id_vendedor" required>
+            <option value="">Carregando vendedor...</option>
+            </select>
+
+            <label for="produto">Produto</label>
+            <select id="produto" name="id_produto" required>
+            <option value="">Carregando produto...</option>
+            </select>
+
+            <label for="DataVenda">Data da Venda</label>
+            <input type="date" id="data" name="data_venda" required>
+
+            <label for="Preço">Valor Total</label>
+            <input type="text" id="preco_visivel" required>
+            <input type="hidden" id="preco_banco" name="valor_total" required>
+
+            <button type="submit">Salvar</button>
+        </form>
+    </main>
+
+<script>
+    const parametros = new URLSearchParams(window.location.search);
+
+    if (parametros.get("sucesso") === "true") {
+        alert("Produto cadastrado com sucesso!");
+    }
+
+    async function carregarClientes() {
+        const selectCliente = document.getElementById("cliente");
+
+        try {
+            const resposta = await fetch("/api/buscar-clientes");
+
+            if (!resposta.ok) {
+                throw new Error(`Erro HTTP: ${resposta.status}`);
+            }
+
+            const clientes = await resposta.json();
+
+            selectCliente.innerHTML = `
+                <option value="">Selecione um cliente</option>
+            `;
+
+            if (clientes.length === 0) {
+                selectCliente.innerHTML = `
+                    <option value="">
+                        Nenhum cliente cadastrado
+                    </option>
+                `;
+
+                selectCliente.disabled = true;
+                return;
+            }
+
+            clientes.forEach((cliente) => {
+                const opcao = document.createElement("option");
+
+                opcao.value = cliente.id_cliente;
+                opcao.textContent = `${cliente.nome} — ${cliente.cpf}`;
+
+                selectCliente.appendChild(opcao);
+            });
+        } catch (erro) {
+            console.error("Erro ao carregar clientes:", erro);
+
+            selectCliente.innerHTML = `
+                <option value="">
+                    Erro ao carregar clientes
+                </option>
+            `;
+
+            selectCliente.disabled = true;
+        }
+    }
+
+    async function carregarVendedores() {
+        const selectVendedor = document.getElementById("vendedor");
+
+        try {
+            const resposta = await fetch("/api/buscar-vendedores");
+
+            if (!resposta.ok) {
+                throw new Error(`Erro HTTP: ${resposta.status}`);
+            }
+
+            const vendedores = await resposta.json();
+
+            selectVendedor.innerHTML = `
+                <option value="">Selecione um vendedor</option>
+            `;
+
+            if (vendedores.length === 0) {
+                selectVendedor.innerHTML = `
+                    <option value="">
+                        Nenhum vendedor cadastrado
+                    </option>
+                `;
+
+                selectVendedor.disabled = true;
+                return;
+            }
+
+            vendedores.forEach((vendedor) => {
+                const opcao = document.createElement("option");
+
+                opcao.value = vendedor.id_vendedor;
+                opcao.textContent = `${vendedor.nome} — ${vendedor.cpf}`;
+
+                selectVendedor.appendChild(opcao);
+            });
+        } catch (erro) {
+            console.error("Erro ao carregar vendedores:", erro);
+
+            selectVendedor.innerHTML = `
+                <option value="">
+                    Erro ao carregar vendedores
+                </option>
+            `;
+
+            selectVendedor.disabled = true;
+        }
+    }
+
+
+    carregarClientes();
+    carregarVendedores();
+</script>
+</body>
+</html>

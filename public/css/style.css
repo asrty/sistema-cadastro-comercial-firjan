@@ -1,0 +1,128 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #e9eef5;
+}
+
+.container {
+    padding: 40px 0px 0px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.formulario {
+    width: 400px;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+}
+
+.formulario h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #263238;
+}
+
+.formulario label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #333;
+}
+
+.formulario input, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 18px;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.formulario button {
+    width: 100%;
+    padding: 12px;
+    background: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.formulario button:hover {
+    background: #0d47a1;
+}
+
+/* Container principal com scroll horizontal para telas pequenas */
+.tabela-container {
+    max-width: 80%;
+    overflow-x: auto;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Estilização do título */
+.tabela-container h2 {
+    color: #333333;
+    margin-bottom: 20px;
+    font-size: 24px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+/* Estrutura da tabela */
+.tabela-container table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+/* Cabeçalho da tabela */
+.tabela-container th {
+    background-color: #4670e5;
+    color: #ffffff;
+    padding: 14px 16px;
+    font-weight: 600;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Células do corpo da tabela */
+.tabela-container td {
+    padding: 12px 16px;
+    color: #4b5563;
+    font-size: 14px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* Linhas alternadas (efeito zebra) */
+.tabela-container tbody tr:nth-child(even) {
+    background-color: #f9fafb;
+}
+
+/* Efeito de hover ao passar o mouse na linha */
+.tabela-container tbody tr:hover {
+    background-color: #f3f4f6;
+    transition: background-color 0.2s ease;
+}
+
+/* Arredondamento dos cantos superiores do cabeçalho */
+.tabela-container th:first-child {
+    border-top-left-radius: 6px;
+}
+.tabela-container th:last-child {
+    border-top-right-radius: 6px;
+}

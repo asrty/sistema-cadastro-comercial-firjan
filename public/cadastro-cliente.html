@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Cliente</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="module" src="scripts/padrao.js"></script>
+</head>
+<body>
+
+    <main class="container">
+        <form class="formulario" action="/cadastrar-cliente" method="POST">
+            <h1>Cadastrar Cliente</h1>
+
+            <label for="nome">Nome do cliente</label>
+            <input type="text" id="nome" name="nome" required>
+
+            <label for="cpf">CPF</label>
+            <input type="text" id="cpf" name="cpf" required>
+
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="telefone">Telefone</label>
+            <input type="text" id="telefone" name="telefone" required>
+
+            <label for="endereco"><h3>Endereco</h3></label>
+            <label for="Estado"> - Estado</label>
+            <input type="text" id="estado" required>
+            <label for="Bairro"> - Bairro</label>
+            <input type="text" id="bairro" required>
+            <label for="Rua"> - Rua</label>
+            <input type="text" id="rua" required>
+            <label for="Numero"> - N°</label>
+            <input type="text" id="numero_rua" required>
+            <label for="Complemento"> - Complemento</label>
+            <input type="text" id="complemento" required>
+            <input type="hidden" id="endereco" name="endereco" required>
+            <label for="DataNacimento"> Data de Nascimento:</label>
+            <input type="date" id="data_nascimento" name="data_nascimento" required>
+
+            <button type="submit">Salvar</button>
+        </form>
+    </main>
+
+
+<script>
+    const parametros = new URLSearchParams(window.location.search);
+
+    if (parametros.get("sucesso") === "true") {
+        alert("Cliente cadastrado com sucesso!");
+    }
+</script>
+</body>
+</html>

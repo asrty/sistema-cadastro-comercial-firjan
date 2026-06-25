@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Produto</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="scripts/padrao.js"></script>
+</head>
+<body>
+
+    <main class="container">
+        <form class="formulario" action="/cadastrar-produto" method="POST">
+            <h1>Cadastrar Produto</h1>
+
+            <label for="nome">Nome do produto</label>
+            <input type="text" id="nome" name="nome_produto" required>
+
+            <label for="Descricao">Descrição</label>
+            <input type="text" id="descricao" name="descricao" required onclick="formatarCPF(this)">
+
+            <label for="Preço">Preço</label>
+            <input type="text" id="preco_visivel" required>
+            <input type="hidden" id="preco_banco" name="preco" required>
+
+            <label for="QuantidadeEstoque">Quantidade Estoque</label>
+            <input type="number" id="quantidade_estoque" name="quantidade_estoque" required>
+
+            <label for="categoria">Categoria</label>
+            <input type="text" id="categoria" name="categoria" >
+
+            <button type="submit">Salvar</button>
+        </form>
+    </main>
+
+<script>
+    const parametros = new URLSearchParams(window.location.search);
+
+    if (parametros.get("sucesso") === "true") {
+        alert("Produto cadastrado com sucesso!");
+    }
+</script>
+</body>
+</html>
