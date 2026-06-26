@@ -74,7 +74,7 @@ app.post("/cadastrar-produto", (req, res) => {
 app.post("/cadastrar-venda", (req, res) => {
     const { id_cliente, id_vendedor, id_produto, quantidade, data_venda, valor_total } = req.body;
     
-    const venda = Venda(null, id_cliente, id_vendedor, id_produto, quantidade, data_venda, valor_total);
+    const venda = new Venda(null, id_cliente, id_vendedor, id_produto, quantidade, data_venda, valor_total);
 
     venda.cadastrar((erro) => {
         if (erro) {

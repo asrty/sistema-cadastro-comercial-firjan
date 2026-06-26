@@ -169,20 +169,20 @@ class Produto {
     }
     cadastrar(callback) {
         const sql = `
-            INSERT INTO produtos (nome_produto, descricao, preco, quantidade_estoque, categoria)
+            INSERT INTO produto (nome_produto, descricao, preco, quantidade_estoque, categoria)
             VALUES (?, ?, ?, ?, ?)
         `;
         conexao.query(sql, [this.nomeProduto, this.descricao, this.preco, this.quantidadeEstoque, this.categoria], callback);
     }
     buscarDados(callback) {
         const sql = `
-            SELECT * FROM produtos
+            SELECT * FROM produto
         `;
         conexao.query(sql, callback);
     }
     editarDados(callback) {
         const sql = `
-            UPDATE produtos
+            UPDATE produto
             SET nome_produto = ?, descricao = ?, preco = ?, quantidade_estoque = ?, categoria = ?
             WHERE id_produto = ?
         `;
@@ -190,7 +190,7 @@ class Produto {
     }
     apagarDados(callback) {
         const sql = `
-            DELETE FROM produtos
+            DELETE FROM produto
             WHERE id_produto = ?
         `;
         conexao.query(sql, [this.idProduto], callback);
@@ -203,34 +203,33 @@ class Venda {
         this.idCliente = id_cliente;
         this.idVendedor = id_vendedor;
         this.idProduto = id_produto;
-        this.quantidade = quantidade;
         this.dataVenda = data_venda;
         this.valorTotal = valor_total;
     }
     cadastrar(callback) {
         const sql = `
-            INSERT INTO vendas (id_cliente, id_vendedor, id_produto, quantidade, data_venda, valor_total)
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO venda (id_cliente, id_vendedor, id_produto, data_venda, valor_total)
+            VALUES (?, ?, ?, ?, ?)
         `;
-        conexao.query(sql, [this.idCliente, this.idVendedor, this.idProduto, this.quantidade, this.dataVenda, this.valorTotal], callback);
+        conexao.query(sql, [this.idCliente, this.idVendedor, this.idProduto, this.dataVenda, this.valorTotal], callback);
     }
     buscarDados(callback) {
         const sql = `
-            SELECT * FROM vendas
+            SELECT * FROM venda
         `;
         conexao.query(sql, callback);
     }
     editarDados(callback) {
         const sql = `
-            UPDATE vendas
-            SET id_cliente = ?, id_vendedor = ?, id_produto = ?, quantidade = ?, data_venda = ?, valor_total = ?
+            UPDATE venda
+            SET id_cliente = ?, id_vendedor = ?, id_produto = ?, data_venda = ?, valor_total = ?
             WHERE id_venda = ?
         `;
-        conexao.query(sql, [this.idCliente, this.idVendedor, this.idProduto, this.quantidade, this.dataVenda, this.valorTotal, this.idVenda], callback);
+        conexao.query(sql, [this.idCliente, this.idVendedor, this.idProduto, this.dataVenda, this.valorTotal, this.idVenda], callback);
     }
     apagarDados(callback) {
         const sql = `
-            DELETE FROM vendas
+            DELETE FROM venda
             WHERE id_venda = ?
         `;
         conexao.query(sql, [this.idVenda], callback);

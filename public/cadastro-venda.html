@@ -27,11 +27,14 @@
             <option value="">Carregando produto...</option>
             </select>
 
+            <label for="Quantidade">Quantidade</label>
+            <input type="number" id="quantidade" oninput="calcularTotal(this)">
+
             <label for="DataVenda">Data da Venda</label>
             <input type="date" id="data" name="data_venda" required>
 
             <label for="Preço">Valor Total</label>
-            <input type="text" id="preco_visivel" required>
+            <input type="text" id="preco_visivel" required readonly>
             <input type="hidden" id="preco_banco" name="valor_total" required>
 
             <button type="submit">Salvar</button>
@@ -141,7 +144,72 @@
         }
     }
 
+    async function carregarProdutos() {
+        const selectProduto = document.getElementById("produto");
 
+        try {
+            const resposta = await fetch("/api/buscar-produtos");
+
+            if (!resposta.ok) {
+                throw new Error(`Erro HTTP: ${resposta.status}`);
+            }
+
+            const produtos = await resposta.json();
+
+            selectProduto.innerHTML = `
+                <option value="">Selecione um produto</option>
+            `;
+
+            if (produtos.length === 0) {
+                selectProduto.innerHTML = `
+                    <option value="">
+                        Nenhum produto cadastrado
+                    </option>
+                `;
+
+                selectProduto.disabled = true;
+                return;
+            }
+
+            produtos.forEach((produto) => {
+                const opcao = document.createElement("option");
+
+                opcao.value = produto.id_produto;
+                opcao.textContent = `${produto.nome_produto} — R$ ${produto.preco}`;
+                opcao.dataset.preco = produto.preco; // Guarda o preço
+
+                selectProduto.appendChild(opcao);
+            });
+        } catch (erro) {
+            console.error("Erro ao carregar produtos:", erro);
+
+            selectProduto.innerHTML = `
+                <option value="">
+                    Erro ao carregar produtos
+                </option>
+            `;
+
+            selectProduto.disabled = true;
+        }
+    }
+
+    function calcularTotal(input){
+    const selectProduto = document.getElementById("produto");
+    const valorTotal = document.getElementById("preco_visivel");
+    const valorTotalBanco = document.getElementById("preco_banco");
+
+    const opcaoSelecionada = selectProduto.options[selectProduto.selectedIndex];
+    const preco = parseFloat(opcaoSelecionada.dataset.preco) || 0;
+    const quantidade = parseFloat(input.value) || 0;
+
+    valorTotalBanco.value = (preco * quantidade).toFixed(2);
+    valorTotal.value = (preco * quantidade).toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        });
+    }
+
+    carregarProdutos()
     carregarClientes();
     carregarVendedores();
 </script>
